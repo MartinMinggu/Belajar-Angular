@@ -1,0 +1,104 @@
+<div class="col-lg-6 mx-auto bg-body-secondary p-5 m-auto rounded mt-4">
+    <h1 class="text-center text-secondary">{{titleForm}}</h1>
+    <form [formGroup]="employeeForm">
+        <!--Username-->
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control input-group" [disabled]="isInsert" id="username"
+                placeholder="Input your Username here.." formControlName="username">
+            <div class="alert alert-danger mt-1"
+                *ngIf="employeeForm.controls['username'].touched && !employeeForm.controls['username'].valid">
+                <div *ngIf="employeeForm.controls['username'].errors?.['required']">username is required</div>
+                <div *ngIf="employeeForm.controls['username'].errors?.['checkUsernameAvailability']">username is
+                    allready taken</div>
+            </div>
+        </div>
+        <!--firstname-->
+        <div class="mb-3">
+            <label for="firstName">FirstName</label>
+            <input type="text" class="form-control input-group" id="firstName" placeholder="Firstname"
+                formControlName="firstName">
+            <div class="alert alert-danger mt-1"
+                *ngIf="employeeForm.controls['firstName'].touched && !employeeForm.controls['firstName'].valid">
+                <div *ngIf="employeeForm.controls['firstName'].errors?.['required']">FirstName is required</div>
+            </div>
+        </div>
+        <!--lastname-->
+        <div class="mb-3">
+            <label for="lastName">Lastname</label>
+            <input type="text" class="form-control input-group" id="lastName" placeholder="LastName"
+                formControlName="lastName">
+            <div class="alert alert-danger mt-1"
+                *ngIf="employeeForm.controls['lastName'].touched && !employeeForm.controls['lastName'].valid">
+                <div *ngIf="employeeForm.controls['lastName'].errors?.['required']">LastName is required</div>
+            </div>
+        </div>
+        <!--Email-->
+        <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@email.com" class="form-control form-control-lg"
+                formControlName="email">
+            <div class="alert alert-danger mt-1"
+                *ngIf="employeeForm.controls['email'].touched && !employeeForm.controls['email'].valid">
+                <div *ngIf="employeeForm.controls['email'].errors?.['required']">emai is required</div>
+                <div *ngIf="employeeForm.controls['email'].errors?.['email']">email address not valid!</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="birthDate">Birthdate</label>
+                <input type="date" id="birthdate" class="form-control form-control-lg" max="{{dateNow}}"
+                    formControlName="birthDate">
+                <div class="alert alert-danger mt-1"
+                    *ngIf="employeeForm.controls['birthDate'].touched && !employeeForm.controls['birthDate'].valid">
+                    <div *ngIf="employeeForm.controls['birthDate'].errors?.['required']">BirthDate is required</div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="salary">Salary</label>
+                <input type="number" id="salary" class="form-control form-control-lg" formControlName="basicSalary"
+                    min="0" value="0">
+                <div class="alert alert-danger mt-1"
+                    *ngIf="employeeForm.controls['basicSalary'].touched && !employeeForm.controls['basicSalary'].valid">
+                    <div *ngIf="employeeForm.controls['birthDate'].errors?.['required']">Salary is required</div>
+                    <div *ngIf="employeeForm.controls['birthDate'].errors?.['min']">Salary must be positif number</div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label for="isActive" class="form-check-label mr-3">Is Acitve?</label>
+                <input type="checkbox" class="form-check-input" id="isActive " formControlName="status">
+            </div>
+
+        </div>
+        <!-- Group -->
+        <div class="mb-3">
+            <label for="email">Group</label>
+            <select id="group" class="form-control form-control-lg form-select-input" formControlName="group">
+                <option value="">pilih group</option>
+                <option *ngFor="let item of groupOptions" [value]="item">{{item}}</option>
+            </select>
+            <div class="alert alert-danger mt-1"
+                *ngIf="employeeForm.controls['group'].valueChanges && ( !employeeForm.controls['group'].valid || employeeForm.controls['group'].value ==='pilih group')">
+                <div>Mohon pilih salah satu</div>
+            </div>
+        </div>
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="email">Description</label>
+            <textarea id="description" class="form-control form-control-lg" formControlName="description"></textarea>
+
+        </div>
+        <div class="alert alert-warning mt-1" *ngIf="isInvalidForm">
+            <div>Mohon periksa kembali kelengkapan data</div>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-5 mb-3">
+                <button class="btn btn-primary btn-lg btn-block w-100" (click)="onSubmit()" type="submit">Save Employee
+                    Data</button>
+            </div>
+            <div class="col-md-5 mb-3">
+                <button class="btn btn-danger btn-lg btn-block w-100" (click)="back()" type="submit">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,51 @@
+<div class="col-lg-6 mx-auto">
+    <div>
+        <div class="text-center mt-4">
+            <h2>welcome Back</h2>
+            <p class="text-primary">Sign in to your account to continue</p>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="loginForm">
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email address"
+                            class="form-control form-control-lg" formControlName="email">
+
+                        <div class="alert alert-danger mt-1"
+                            *ngIf="loginForm.controls['email'].touched && !loginForm.controls['email'].valid">
+                            <div *ngIf="loginForm.controls['email'].errors?.['required']">email required</div>
+                            <div *ngIf="loginForm.controls['email'].errors?.['email']">email address not valid!</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="w-100" for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password"
+                            class="form-control form-control-lg" formControlName="password">
+                        <div class="alert alert-danger mt-1"
+                            *ngIf="loginForm.controls['password'].touched && !loginForm.controls['password'].valid">
+                            <div *ngIf="loginForm.controls['password'].errors?.['required']">password required
+                            </div>
+                            <div *ngIf="loginForm.controls['password'].errors?.['minlength']">password must be
+                                {{loginForm.controls['password'].errors?.['minlength'].requiredLength}} </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="termAndConditions"
+                                formControlName="termAndConditions">
+                            <label class="form-check-label" for="termAndConditions"><u> Terms and Conditions</u></label>
+                        </div>
+                        <div class="alert alert-danger mt-1" *ngIf="errorMesageTnC">
+                            <div>{{errorMesageTnC}}</div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()"
+                        [disabled]="loginForm.invalid">Login</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
